@@ -9,10 +9,13 @@
               <h1>疾病直报系统</h1>
           </el-col>
           <el-col :span="6">
-              <div class="userstate">
-                  <el-link>{{$store.state.username}}</el-link>
+              <div v-if="$store.state.isLogin" class="userstate">
+                {{$store.state.username}}
                   <i>|</i>
-                  <el-link href="/">注销</el-link>
+                <el-button type="text" @click="logout">注销</el-button>
+              </div>
+              <div v-else class="userstate">
+                未登录
               </div>
           </el-col>
         </el-row>
@@ -28,6 +31,12 @@ export default {
   data () {
     return {
       username: ''
+    }
+  },
+  methods: {
+    logout () {
+      this.$store.commit('toggleLogin')
+      this.$router.replace({ path: '/' })
     }
   }
 }
@@ -52,6 +61,7 @@ h1 {
 }
 .userstate {
     float: right;
+    font-size: 14px;
 }
 .el-header {
   border-bottom: 1px #bbb solid;

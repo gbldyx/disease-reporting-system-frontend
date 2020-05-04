@@ -11,19 +11,26 @@
       <!-- <router-link to="mainpage">
         <el-button>To MainPage</el-button>
       </router-link> -->
-      <h5>系统登录</h5>
-      <el-form ref="form" :model="form" label-position="right" label-width="120px">
-        <el-form-item label="用户名">
-          <el-input v-model="form.username"></el-input>
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="form.password" show-password></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">登录</el-button>
-          <el-button type="info">注册</el-button>
-        </el-form-item>
-      </el-form>
+      <h2>系统登录</h2>
+      <el-row>
+        <el-col :span="8">
+          <img src="../assets/logo.png"/>
+        </el-col>
+        <el-col :span="16">
+          <el-form ref="form" :model="form" label-position="right" label-width="120px">
+            <el-form-item label="用户名">
+              <el-input v-model="form.username"></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+              <el-input type="password" v-model="form.password"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onSubmit">登录</el-button>
+              <el-button type="info" @click="onClickRegi">注册</el-button>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
     </el-col>
   </el-row>
 </template>
@@ -45,7 +52,11 @@ export default {
         username: this.form.username,
         password: this.form.password
       })
+      this.$store.commit('toggleLogin')
       this.$router.push({ path: '/mainpage' })
+    },
+    onClickRegi () {
+      this.$router.push({ path: '/register' })
     }
   }
 }
@@ -56,7 +67,10 @@ export default {
   margin: 10px;
   text-align: center;
 }
-h5 {
+h2 {
   text-align: center;
+}
+img {
+  height: 100%;
 }
 </style>

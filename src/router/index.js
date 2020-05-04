@@ -5,10 +5,11 @@ import Login from '@/components/Login'
 import PersonalCase from '@/components/PersonalCase'
 import Query from '@/components/Query'
 import UserInfo from '@/components/UserInfo'
+import Register from '@/components/Register'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/mainpage',
@@ -34,8 +35,27 @@ export default new Router({
     },
     {
       path: '/',
+      redirect: '/login'
+    },
+    {
+      path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })
+
+// router.beforeEach((to, from, next) => {
+//   if (to.path === '/login' || to.path === '/register') {
+//     next()
+//   } else {
+//     if (this.$store.isLogin)
+//   }
+// })
+
+export default router

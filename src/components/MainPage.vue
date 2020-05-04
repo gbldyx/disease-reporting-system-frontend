@@ -4,8 +4,7 @@
       <el-row>
         <el-menu
           router
-          unique-opened
-          :default-active="this.$router.path">
+          unique-opened>
             <el-menu-item
               v-if="isAdmin"
               index="/mainpage/personalcase">个人案例</el-menu-item>
