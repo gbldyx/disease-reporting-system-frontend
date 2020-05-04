@@ -4,7 +4,8 @@
       <el-row>
         <el-menu
           router
-          unique-opened>
+          unique-opened
+          default-active="/mainpage/userinfo">
             <el-menu-item
               v-if="isAdmin"
               index="/mainpage/personalcase">个人案例</el-menu-item>
@@ -39,7 +40,7 @@ export default {
   height: 800px;
 }
 .el-main {
-  background-color: #E9EEF3;
+  /* background-color: #E9EEF3; */
   color: #333;
   line-height: 160px;
 }

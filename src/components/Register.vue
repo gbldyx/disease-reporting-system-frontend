@@ -9,10 +9,10 @@
               <el-input v-model="form.email"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input v-model="form.password" show-password></el-input>
+              <el-input type="password" v-model="form.password"></el-input>
             </el-form-item>
-            <el-form-item label="确认密码" prop="password2">
-              <el-input v-model="form.password2" show-password></el-input>
+            <el-form-item label="确认密码" prop="checkpassword">
+              <el-input type="password" v-model="form.checkpassword"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary">确认注册</el-button>
@@ -32,8 +32,8 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.form.password2 !== '') {
-          this.$refs.form.validateField('password2')
+        if (this.form.checkpassword !== '') {
+          this.$refs.form.validateField('checkpassword')
         }
         callback()
       }
@@ -51,15 +51,22 @@ export default {
       form: {
         username: '',
         password: '',
-        password2: '',
+        checkpassword: '',
         email: ''
       },
       rules: {
-        password: [
-          { validator: validatePassword, trigger: 'blur' }
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 60, message: '用户名长度为 3 至 60 个字符', trigger: 'blur' }
         ],
-        password2: [
-          { validator: checkPassword, trigger: 'blur' }
+        password: [
+          { required: true, validator: validatePassword, trigger: 'blur' }
+        ],
+        checkpassword: [
+          { required: true, validator: checkPassword, trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: '请输入邮箱地址', trigger: 'blur' }
         ]
       }
     }

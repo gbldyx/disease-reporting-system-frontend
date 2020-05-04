@@ -17,6 +17,10 @@ const router = new Router({
       component: MainPage,
       children: [
         {
+          path: '',
+          redirect: 'userinfo'
+        },
+        {
           path: 'personalcase',
           name: 'PersonalCase',
           component: PersonalCase
