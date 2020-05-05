@@ -6,9 +6,10 @@
           router
           unique-opened
           default-active="/mainpage/userinfo">
-            <el-menu-item index="/mainpage/personalcase">个人案例</el-menu-item>
             <el-menu-item index="/mainpage/userinfo">个人信息</el-menu-item>
-            <el-menu-item index="/mainpage/query" v-if="isAdmin">高级查询</el-menu-item>
+            <el-menu-item index="/mainpage/report" v-if="canReport">案例录入</el-menu-item>
+            <el-menu-item index="/mainpage/personalcase" v-if="!isPrior">个人案例</el-menu-item>
+            <el-menu-item index="/mainpage/query" v-if="isPrior">高级查询</el-menu-item>
         </el-menu>
       </el-row>
     </el-aside>
@@ -24,7 +25,8 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      isAdmin: true
+      isPrior: true,
+      canReport: false
     }
   }
 }

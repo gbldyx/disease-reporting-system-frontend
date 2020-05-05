@@ -6,6 +6,7 @@ import PersonalCase from '@/components/PersonalCase'
 import Query from '@/components/Query'
 import UserInfo from '@/components/UserInfo'
 import Register from '@/components/Register'
+import Report from '@/components/Report'
 
 Vue.use(Router)
 
@@ -13,12 +14,15 @@ const router = new Router({
   routes: [
     {
       path: '/mainpage',
-      name: 'MainPage',
       component: MainPage,
       meta: {
         needLogin: true
       },
       children: [
+        {
+          path: '',
+          redirect: 'userinfo'
+        },
         {
           path: 'personalcase',
           name: 'PersonalCase',
@@ -26,13 +30,18 @@ const router = new Router({
         },
         {
           path: 'query',
-          name: 'query',
+          name: 'Query',
           component: Query
         },
         {
           path: 'userinfo',
-          name: 'userinfo',
+          name: 'UserInfo',
           component: UserInfo
+        },
+        {
+          path: 'report',
+          name: 'Report',
+          component: Report
         }
       ]
     },
