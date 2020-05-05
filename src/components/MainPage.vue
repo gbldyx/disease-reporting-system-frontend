@@ -25,8 +25,8 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      isPrior: true,
-      canReport: false
+      isPrior: false,
+      canReport: true
     }
   }
 }
