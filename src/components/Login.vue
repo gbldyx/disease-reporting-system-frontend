@@ -17,12 +17,12 @@
           <img src="../assets/logo.png"/>
         </el-col>
         <el-col :span="16">
-          <el-form ref="form" :model="form" label-position="right" label-width="120px">
-            <el-form-item label="用户名">
-              <el-input v-model="form.username"></el-input>
+          <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="120px">
+            <el-form-item label="用户名" prop="name">
+              <el-input v-model="form.name"></el-input>
             </el-form-item>
-            <el-form-item label="密码">
-              <el-input type="password" v-model="form.password"></el-input>
+            <el-form-item label="密码" prop="pass">
+              <el-input type="password" v-model="form.pass" show-password></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submit">登录</el-button>
@@ -39,21 +39,50 @@
 export default {
   name: 'Login',
   data () {
+    var checkName = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入用户名'))
+      } else {
+        callback()
+      }
+    }
+    var checkPass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        callback()
+      }
+    }
     return {
       form: {
-        username: '',
-        password: ''
+        name: '',
+        pass: ''
+      },
+      rules: {
+        name: [
+          { validator: checkName, trigger: 'blur' }
+        ],
+        pass: [
+          { validator: checkPass, trigger: 'blur' }
+        ]
       }
     }
   },
   methods: {
     submit () {
-      this.$store.commit('edituser', {
-        username: this.form.username,
-        password: this.form.password
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.$store.commit('edituser', {
+            username: this.form.name,
+            password: this.form.pass
+          })
+          this.$store.commit('changeLogin', true)
+          this.$router.push({ path: '/mainpage' })
+        } else {
+          console.log('error submit!')
+          return false
+        }
       })
-      this.$store.commit('changeLogin', true)
-      this.$router.push({ path: '/mainpage' })
     },
     register () {
       this.$router.push({ path: '/register' })
