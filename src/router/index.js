@@ -15,11 +15,10 @@ const router = new Router({
       path: '/mainpage',
       name: 'MainPage',
       component: MainPage,
+      meta: {
+        needLogin: true
+      },
       children: [
-        {
-          path: '',
-          redirect: 'userinfo'
-        },
         {
           path: 'personalcase',
           name: 'PersonalCase',
@@ -44,22 +43,37 @@ const router = new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {
+        needLogin: false
+      }
     },
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta: {
+        needLogin: false
+      }
     }
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.path === '/login' || to.path === '/register') {
-//     next()
-//   } else {
-//     if (this.$store.isLogin)
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  var flag = localStorage.getItem('isLogin') === 'true'
+  if (flag) {
+    if (to.path === '/login') {
+      next({ path: '/mainpage' })
+    } else {
+      next()
+    }
+  } else {
+    if (to.meta.needLogin) {
+      next({ path: '/login' })
+    } else {
+      next()
+    }
+  }
+})
 
 export default router

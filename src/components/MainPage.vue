@@ -6,11 +6,9 @@
           router
           unique-opened
           default-active="/mainpage/userinfo">
-            <el-menu-item
-              v-if="isAdmin"
-              index="/mainpage/personalcase">个人案例</el-menu-item>
+            <el-menu-item index="/mainpage/personalcase">个人案例</el-menu-item>
             <el-menu-item index="/mainpage/userinfo">个人信息</el-menu-item>
-            <el-menu-item index="/mainpage/query">高级查询</el-menu-item>
+            <el-menu-item index="/mainpage/query" v-if="isAdmin">高级查询</el-menu-item>
         </el-menu>
       </el-row>
     </el-aside>
@@ -37,11 +35,11 @@ export default {
 .el-container {
   /* margin-bottom: 40px; */
   text-align: center;
-  height: 800px;
+  /* height: 800px; */
 }
 .el-main {
   /* background-color: #E9EEF3; */
   color: #333;
-  line-height: 160px;
+  /* line-height: 160px; */
 }
 </style>

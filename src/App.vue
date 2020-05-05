@@ -4,11 +4,11 @@
     <el-container>
       <el-header>
         <el-row type="flex" justify="space-between" align="middle">
-          <el-col :span="6">
+          <el-col :span="4">
               <img src="./assets/logo.png" alt="vue"/>
               <h1>疾病直报系统</h1>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="4">
               <div v-if="$store.state.isLogin" class="userstate">
                 {{$store.state.username}}
                   <i>|</i>
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.commit('toggleLogin')
+      this.$store.commit('changeLogin', false)
       this.$router.replace({ path: '/' })
     }
   }

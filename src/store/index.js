@@ -7,15 +7,20 @@ export default new Vuex.Store({
   state: {
     username: '未登录',
     password: '',
-    isLogin: false
+    isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false
   },
   mutations: {
     edituser (state, payload) {
       state.username = payload.username
       state.password = payload.password
     },
-    toggleLogin (state) {
-      state.isLogin = !state.isLogin
+    changeLogin (state, flag) {
+      state.isLogin = flag
+      if (flag) {
+        localStorage.setItem('isLogin', flag)
+      } else {
+        localStorage.removeItem('isLogin')
+      }
     }
   }
 })

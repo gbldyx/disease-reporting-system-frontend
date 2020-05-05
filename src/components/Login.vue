@@ -25,8 +25,8 @@
               <el-input type="password" v-model="form.password"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="onSubmit">登录</el-button>
-              <el-button type="info" @click="onClickRegi">注册</el-button>
+              <el-button type="primary" @click="submit">登录</el-button>
+              <el-button type="info" @click="register">注册</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -47,15 +47,15 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
+    submit () {
       this.$store.commit('edituser', {
         username: this.form.username,
         password: this.form.password
       })
-      this.$store.commit('toggleLogin')
+      this.$store.commit('changeLogin', true)
       this.$router.push({ path: '/mainpage' })
     },
-    onClickRegi () {
+    register () {
       this.$router.push({ path: '/register' })
     }
   }
