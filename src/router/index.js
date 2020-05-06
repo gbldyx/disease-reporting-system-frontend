@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import MainPage from '@/components/MainPage'
 import Login from '@/components/Login'
 import PersonalCase from '@/components/PersonalCase'
-import Query from '@/components/Query'
+import Advance from '@/components/Advance'
 import UserInfo from '@/components/UserInfo'
 import Register from '@/components/Register'
 import Report from '@/components/Report'
@@ -29,9 +29,9 @@ const router = new Router({
           component: PersonalCase
         },
         {
-          path: 'query',
-          name: 'Query',
-          component: Query
+          path: 'advance',
+          name: 'Advance',
+          component: Advance
         },
         {
           path: 'userinfo',

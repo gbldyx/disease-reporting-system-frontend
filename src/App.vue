@@ -6,7 +6,7 @@
         <el-row type="flex" justify="space-between" align="middle">
           <el-col :span="4">
               <img src="./assets/logo.png" alt="vue"/>
-              <h1>疾病直报系统</h1>
+              <h1 class="hidden-md-and-down">疾病直报系统</h1>
           </el-col>
           <el-col :span="4">
               <div v-if="$store.state.isLogin" class="userstate">

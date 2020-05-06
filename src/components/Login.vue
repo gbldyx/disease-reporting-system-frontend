@@ -1,19 +1,9 @@
 <template>
-    <!-- <el-container>
-        <el-header><Navbar></Navbar></el-header>
-        <el-main>main</el-main>
-        <router-link to="mainpage">
-            <el-button>To MainPage</el-button>
-        </router-link>
-    </el-container> -->
   <el-row type="flex" justify="center">
     <el-col :span="8">
-      <!-- <router-link to="mainpage">
-        <el-button>To MainPage</el-button>
-      </router-link> -->
       <h2>系统登录</h2>
       <el-row>
-        <el-col :span="8">
+        <el-col :span="8" class="hidden-md-and-down">
           <img src="../assets/logo.png"/>
         </el-col>
         <el-col :span="16">
