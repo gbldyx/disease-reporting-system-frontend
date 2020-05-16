@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <el-container>
-      <el-header>
+      <el-header class="global-header">
         <el-row type="flex" justify="space-between" align="middle">
           <el-col :span="4">
               <img src="./assets/logo.png" alt="vue"/>
@@ -64,7 +64,7 @@ h1 {
     float: right;
     font-size: 14px;
 }
-.el-header {
+.global-header {
   border-bottom: 1px #bbb solid;
 }
 </style>

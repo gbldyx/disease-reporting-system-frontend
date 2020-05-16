@@ -1,5 +1,5 @@
 <template>
-  <el-row type="flex" justify="center">
+  <!-- <el-row type="flex" justify="center">
     <el-col :span="8">
       <h2>系统登录</h2>
       <el-row>
@@ -7,7 +7,7 @@
           <img src="../assets/logo.png"/>
         </el-col>
         <el-col :span="16">
-          <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="120px">
+          <el-form ref="form" :model="form" :rules="rules" label-position="right">
             <el-form-item label="用户名" prop="name">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
@@ -22,7 +22,50 @@
         </el-col>
       </el-row>
     </el-col>
-  </el-row>
+  </el-row> -->
+  <el-container class="w600-center">
+    <el-header>
+      <h2>系统登录</h2>
+    </el-header>
+    <el-container>
+      <el-row>
+        <el-col :span="8">
+          <img src="../assets/logo.png"/>
+        </el-col>
+        <el-col :span="16">
+          <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="100px">
+            <el-form-item label="用户名" prop="name">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="pass">
+              <el-input type="password" v-model="form.pass" show-password></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="submit">登录</el-button>
+              <el-button type="info" @click="register">注册</el-button>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+      <!-- <el-aside width="200px">
+        <img src="../assets/logo.png"/>
+      </el-aside>
+      <el-main>
+        <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="100px">
+          <el-form-item label="用户名" prop="name">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="pass">
+            <el-input type="password" v-model="form.pass" show-password></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submit">登录</el-button>
+            <el-button type="info" @click="register">注册</el-button>
+          </el-form-item>
+        </el-form>
+      </el-main> -->
+    </el-container>
+  </el-container>
 </template>
 
 <script>
@@ -91,5 +134,9 @@ h2 {
 }
 img {
   height: 100%;
+}
+.w600-center {
+  margin: 0 auto;
+  width: 600px;
 }
 </style>
