@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    username: '未登录',
+    username: localStorage.getItem('username') ? localStorage.getItem('username') : '未登录',
     password: '',
     isLogin: localStorage.getItem('isLogin') ? localStorage.getItem('isLogin') : false
   },
@@ -18,8 +18,10 @@ export default new Vuex.Store({
       state.isLogin = flag
       if (flag) {
         localStorage.setItem('isLogin', flag)
+        localStorage.setItem('username', state.username)
       } else {
         localStorage.removeItem('isLogin')
+        localStorage.removeItem('username')
       }
     }
   }
