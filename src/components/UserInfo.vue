@@ -19,13 +19,12 @@
       </el-form-item>
       <el-form-item label="手机" prop="telephone">
         <el-input
-          type="number"
           maxlength="11"
           v-model="form.telephone"
         ></el-input>
       </el-form-item>
       <el-form-item label="QQ" prop="qq">
-        <el-input type="number" v-model="form.qq"></el-input>
+        <el-input v-model="form.qq"></el-input>
       </el-form-item>
       <el-form-item label="微信" prop="wechat">
         <el-input v-model="form.wechat"></el-input>
