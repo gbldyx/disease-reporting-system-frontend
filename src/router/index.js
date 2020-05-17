@@ -47,14 +47,18 @@ const router = new Router({
     },
     {
       path: '/',
-      redirect: '/login'
-    },
-    {
-      path: '/login',
       name: 'Login',
       component: Login,
+      alias: '/login',
       meta: {
         needLogin: false
+      },
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem('isLogin') === 'true') {
+          next({ path: '/mainpage' })
+        } else {
+          next()
+        }
       }
     },
     {
@@ -69,20 +73,29 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  var flag = localStorage.getItem('isLogin') === 'true'
-  console.log(flag)
-  if (flag) {
-    if (to.path === '/login') {
-      next({ path: '/mainpage' })
-    } else {
+  // var flag = localStorage.getItem('isLogin') === 'true'
+  // console.log(flag)
+  // if (flag) {
+  //   if (to.path === '/login') {
+  //     next({ path: '/mainpage' })
+  //   } else {
+  //     next()
+  //   }
+  // } else {
+  //   if (to.meta.needLogin) {
+  //     next({ path: '/login' })
+  //   } else {
+  //     next()
+  //   }
+  // }
+  if (to.matched.some(record => record.meta.needLogin)) {
+    if (localStorage.getItem('isLogin') === 'true') {
       next()
+    } else {
+      next({ path: '/login' })
     }
   } else {
-    if (to.meta.needLogin) {
-      next({ path: '/login' })
-    } else {
-      next()
-    }
+    next()
   }
 })
 
