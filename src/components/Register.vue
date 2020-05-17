@@ -1,49 +1,26 @@
 <template>
-    <!-- <el-row type="flex" justify="center">
-      <el-col :span="6">
-        <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="120px">
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name"></el-input>
-            </el-form-item>
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="form.email"></el-input>
-            </el-form-item>
-            <el-form-item label="密码" prop="pass">
-              <el-input type="password" v-model="form.pass" show-password></el-input>
-            </el-form-item>
-            <el-form-item label="确认密码" prop="checkpass">
-              <el-input type="password" v-model="form.checkpass" show-password></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="submitForm('form')">确认</el-button>
-              <el-button type="info" @click="onReturn">返回</el-button>
-              <el-button @click="resetForm('form')">清除</el-button>
-            </el-form-item>
-          </el-form>
-      </el-col>
-    </el-row> -->
-    <el-container direction="vertical" class="w600-center">
-      <h2>用户注册</h2>
-      <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="100px">
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="form.email"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="pass">
-          <el-input type="password" v-model="form.pass" show-password></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkpass">
-          <el-input type="password" v-model="form.checkpass" show-password></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('form')">确认</el-button>
-          <el-button type="info" @click="onReturn">返回</el-button>
-          <el-button @click="resetForm('form')">清除</el-button>
-        </el-form-item>
-      </el-form>
-    </el-container>
+  <el-container direction="vertical" class="w600-center">
+    <h2>用户注册</h2>
+    <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="100px">
+      <el-form-item label="姓名" prop="name">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="邮箱" prop="email">
+        <el-input v-model="form.email"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" prop="pass">
+        <el-input type="password" v-model="form.pass" show-password></el-input>
+      </el-form-item>
+      <el-form-item label="确认密码" prop="checkpass">
+        <el-input type="password" v-model="form.checkpass" show-password></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('form')">确认</el-button>
+        <el-button type="info" @click="onReturn">返回</el-button>
+        <el-button @click="resetForm('form')">清除</el-button>
+      </el-form-item>
+    </el-form>
+  </el-container>
 </template>
 
 <script>
@@ -97,16 +74,16 @@ export default {
     submitForm (formname) {
       this.$refs[formname].validate((valid) => {
         if (valid) {
+          // TODO: 在此提交注册信息
           alert('Submit!')
         } else {
           console.log('error submit!')
           return false
         }
       })
-      // this.$router.push({ path: '/login' })
     },
     onReturn () {
-      this.$router.go(-1)
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     },
     resetForm (formname) {
       this.$refs[formname].resetFields()

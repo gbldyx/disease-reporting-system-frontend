@@ -1,5 +1,5 @@
 <template>
-    <el-form ref="form" :model="form" label-width="200px" class="left-align">
+    <el-form ref="form" :model="form" label-width="200px" class="left-align w800">
       <el-form-item label="个人健康状况">
         <el-input type="textarea" v-model="form.myCond" resize="none"></el-input>
       </el-form-item>
@@ -27,7 +27,7 @@
         <el-radio v-model="form.contactFrnr" :label="false">否</el-radio>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">提交</el-button>
+        <el-button type="primary" @click="submit">提交</el-button>
       </el-form-item>
     </el-form>
 </template>
@@ -47,6 +47,12 @@ export default {
         contactFrnr: false
       }
     }
+  },
+  methods: {
+    submit () {
+      // TODO: 在此提交个人案例
+      console.log('submit')
+    }
   }
 }
 </script>
@@ -55,7 +61,7 @@ export default {
 .left-align {
   text-align: left;
 }
-.el-form-item {
+.w800 {
   width: 800px;
 }
 </style>

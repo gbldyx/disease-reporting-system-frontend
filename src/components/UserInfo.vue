@@ -5,6 +5,7 @@
       :model="form"
       label-width="200px"
       :disabled="uneditable"
+      class="w800"
     >
       <el-form-item label="姓名" prop="name">
         <el-input v-model="form.name"></el-input>
@@ -81,9 +82,11 @@ export default {
       this.uneditable = false
     },
     save () {
+      // TODO: 在此提交修改的个人信息
       this.uneditable = true
     },
     cancel () {
+      // TODO: 在此恢复修改后的个人信息
       this.$refs.form.resetFields()
       this.uneditable = true
     }
@@ -92,7 +95,7 @@ export default {
 </script>
 
 <style scoped>
-.el-input {
-  width: 500px;
+.w800 {
+  width: 800px;
 }
 </style>

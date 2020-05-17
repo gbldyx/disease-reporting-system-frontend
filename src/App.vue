@@ -42,6 +42,7 @@ export default {
   },
   methods: {
     logout () {
+      // TODO: 在此发出注销请求
       this.$store.commit('reset')
       this.$store.commit('changeLogin', false)
       this.$router.replace({ path: '/' })

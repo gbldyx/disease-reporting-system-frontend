@@ -4,7 +4,8 @@
       <el-menu
         router
         unique-opened
-        default-active="/mainpage/userinfo">
+        :default-active="currentPath"
+        @select="handleSelect">
           <el-menu-item index="/mainpage/userinfo">个人信息</el-menu-item>
           <el-menu-item index="/mainpage/report" v-if="canReport">案例录入</el-menu-item>
           <el-menu-item index="/mainpage/personalcase" v-if="!isPrior">个人案例</el-menu-item>
@@ -24,6 +25,17 @@ export default {
     return {
       isPrior: true,
       canReport: true
+    }
+  },
+  computed: {
+    currentPath: function () {
+      return this.$route.path
+    }
+  },
+  methods: {
+    handleSelect (key, keyPath) {
+      // console.log(key, keyPath)
+      console.log(this.$route)
     }
   }
 }
