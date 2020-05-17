@@ -65,9 +65,11 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           // TODO: 在此提交登录信息
+          console.log(this.form.name, this.form.pass)
+          var t = this.form.name + this.form.pass
           this.$store.commit('setuser', {
             username: this.form.name,
-            password: this.form.pass
+            token: t
           })
           this.$store.commit('changeLogin', true)
           this.$router.push({ path: '/mainpage' })
