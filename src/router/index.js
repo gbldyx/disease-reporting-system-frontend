@@ -70,6 +70,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   var flag = localStorage.getItem('isLogin') === 'true'
+  console.log(flag)
   if (flag) {
     if (to.path === '/login') {
       next({ path: '/mainpage' })

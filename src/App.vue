@@ -9,14 +9,21 @@
               <h1 class="hidden-md-and-down">疾病直报系统</h1>
           </el-col>
           <el-col :span="4">
-              <div v-if="$store.state.isLogin" class="userstate">
+              <!-- <div v-if="$store.state.isLogin" class="userstate">
                 {{$store.state.username}}
                   <i>|</i>
                 <el-button type="text" @click="logout">注销</el-button>
               </div>
               <div v-else class="userstate">
                 未登录
-              </div>
+              </div> -->
+            <div class="userstate">
+              {{$store.state.username}}
+              <span v-if="$store.state.isLogin">
+                <i>|</i>
+                <el-button type="text" @click="logout">注销</el-button>
+              </span>
+            </div>
           </el-col>
         </el-row>
       </el-header>
@@ -35,6 +42,7 @@ export default {
   },
   methods: {
     logout () {
+      this.$store.commit('reset')
       this.$store.commit('changeLogin', false)
       this.$router.replace({ path: '/' })
     }

@@ -105,7 +105,7 @@ export default {
     submit () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.$store.commit('edituser', {
+          this.$store.commit('setuser', {
             username: this.form.name,
             password: this.form.pass
           })
