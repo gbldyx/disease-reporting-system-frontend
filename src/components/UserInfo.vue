@@ -81,6 +81,7 @@ export default {
       this.uneditable = false
     },
     save () {
+      this.form.id = this.$store.state.userid
       this.$axios.put('/user/update', this.$qs.stringify(this.form))
         .then((res) => {
           if (res.data.success) {
