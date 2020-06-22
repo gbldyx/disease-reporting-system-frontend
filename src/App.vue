@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
     <el-container>
       <el-header class="global-header">
         <el-row type="flex" justify="space-between" align="middle">
@@ -9,14 +8,6 @@
               <h1 class="hidden-md-and-down">疾病直报系统</h1>
           </el-col>
           <el-col :span="4">
-              <!-- <div v-if="$store.state.isLogin" class="userstate">
-                {{$store.state.username}}
-                  <i>|</i>
-                <el-button type="text" @click="logout">注销</el-button>
-              </div>
-              <div v-else class="userstate">
-                未登录
-              </div> -->
             <div class="userstate">
               {{$store.state.username}}
               <span v-if="$store.state.isLogin">
@@ -42,7 +33,10 @@ export default {
   },
   methods: {
     logout () {
-      // TODO: 在此发出注销请求
+      this.$axios.get('/logout')
+        .then(res => {
+          console.log(res)
+        })
       this.$store.commit('reset')
       this.$store.commit('changeLogin', false)
       this.$router.replace({ path: '/' })
@@ -56,9 +50,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
-  /* background-color: #eee; */
 }
 img {
     float: left;

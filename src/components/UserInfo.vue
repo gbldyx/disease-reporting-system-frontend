@@ -7,12 +7,12 @@
       :disabled="uneditable"
       class="w800"
     >
-      <el-form-item label="姓名" prop="name">
-        <el-input v-model="form.name"></el-input>
+      <el-form-item label="姓名" prop="userName">
+        <el-input v-model="form.userName"></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="sex">
-        <el-radio v-model="form.sex" label="m">男</el-radio>
-        <el-radio v-model="form.sex" label="f">女</el-radio>
+        <el-radio v-model="form.sex" label="男">男</el-radio>
+        <el-radio v-model="form.sex" label="女">女</el-radio>
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input type="email" v-model="form.email"></el-input>
@@ -29,14 +29,14 @@
       <el-form-item label="微信" prop="wechat">
         <el-input v-model="form.wechat"></el-input>
       </el-form-item>
-      <el-form-item label="学校" prop="colleage">
-        <el-input v-model="form.colleage"></el-input>
+      <el-form-item label="学校" prop="college">
+        <el-input v-model="form.college"></el-input>
       </el-form-item>
       <el-form-item label="专业" prop="major">
         <el-input v-model="form.major"></el-input>
       </el-form-item>
-      <el-form-item label="现居住地" prop="livingcity">
-        <el-input v-model="form.livingcity"></el-input>
+      <el-form-item label="现居住地" prop="livingCity">
+        <el-input v-model="form.livingCity"></el-input>
       </el-form-item>
       <el-form-item label="籍贯" prop="hometown">
         <el-input v-model="form.hometown"></el-input>
@@ -62,16 +62,16 @@ export default {
   data () {
     return {
       form: {
-        name: '2342',
-        email: '42342',
-        sex: 'm',
-        telephone: '23424',
-        qq: '2344',
-        wechat: '4234',
-        colleage: '4234',
-        major: '656546',
-        livingcity: '43242',
-        hometown: '43535'
+        userName: '',
+        email: '',
+        sex: '男',
+        telephone: '',
+        qq: '',
+        wechat: '',
+        college: '',
+        major: '',
+        livingCity: '',
+        hometown: ''
       },
       uneditable: true
     }
@@ -81,14 +81,51 @@ export default {
       this.uneditable = false
     },
     save () {
-      // TODO: 在此提交修改的个人信息
-      this.uneditable = true
+      this.$axios.put('/user/update', this.$qs.stringify(this.form))
+        .then((res) => {
+          if (res.data.success) {
+            this.$alert('修改成功！', '', {
+              confirmButtonText: '确定',
+              type: 'success'
+            })
+            this.uneditable = true
+          } else {
+            this.$alert('修改失败，请稍后重试', '', {
+              confirmButtonText: '确定',
+              type: 'error'
+            })
+            this.uneditable = false
+          }
+        })
     },
     cancel () {
-      // TODO: 在此恢复修改后的个人信息
-      this.$refs.form.resetFields()
+      this.$axios.get('/user/selectOne', { params: { id: this.$store.state.userid } })
+        .then((res) => {
+          if (res.data.success) {
+            for (var prop in this.form) {
+              this.form[prop] = res.data.data[prop]
+            }
+          } else {
+            console.log(res)
+          }
+        })
       this.uneditable = true
     }
+  },
+  created: function () {
+    this.$axios.get('/user/selectOne', { params: { id: this.$store.state.userid } })
+      .then((res) => {
+        if (res.data.success) {
+          for (var prop in this.form) {
+            this.form[prop] = res.data.data[prop]
+          }
+        } else {
+          this.$alert('加载失败，请重试', '加载失败', {
+            confirmButtonText: '确定',
+            type: 'error'
+          })
+        }
+      })
   }
 }
 </script>

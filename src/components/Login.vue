@@ -10,8 +10,8 @@
         </el-col>
         <el-col :span="16">
           <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="100px">
-            <el-form-item label="用户名" prop="name">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="邮箱" prop="email">
+              <el-input v-model="form.email"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="pass">
               <el-input type="password" v-model="form.pass" show-password></el-input>
@@ -33,7 +33,7 @@ export default {
   data () {
     var checkName = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入用户名'))
+        callback(new Error('请输入邮箱'))
       } else {
         callback()
       }
@@ -47,11 +47,11 @@ export default {
     }
     return {
       form: {
-        name: '',
+        email: '',
         pass: ''
       },
       rules: {
-        name: [
+        email: [
           { validator: checkName, trigger: 'blur' }
         ],
         pass: [
@@ -64,23 +64,50 @@ export default {
     submit () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          // TODO: 在此提交登录信息
-          console.log(this.form.name, this.form.pass)
-          var t = this.form.name + this.form.pass
-          this.$store.commit('setuser', {
-            username: this.form.name,
-            token: t
-          })
-          this.$store.commit('changeLogin', true)
-          this.$router.push({ path: '/mainpage' })
+          this.sendLogin()
         } else {
-          console.log('error submit!')
-          return false
+          this.$alert('登录信息填写有误，请检查登录信息！', '登录失败', {
+            confirmButtonText: '确定',
+            type: 'error'
+          })
         }
       })
     },
     register () {
       this.$router.push({ path: '/register' })
+    },
+    sendLogin () {
+      this.$axios.post('/login', this.$qs.stringify({ username: this.form.email, password: this.form.pass }))
+        .then((res) => {
+          if (res.data.success) {
+            var d = res.data.data
+            var id = d.userId
+            var role = d.roleName
+            var username
+            this.$axios.get('/user/selectOne', { params: { id: id } })
+              .then(res => {
+                username = res.data.data.userName
+                this.$store.commit('setuser', {
+                  username: username,
+                  rolename: role,
+                  userid: id
+                })
+                this.$store.commit('changeLogin', true)
+                this.$router.push({ path: '/mainpage' })
+              })
+          } else {
+            this.$alert('登录失败：' + res.data.message, '登录失败', {
+              confirmButtonText: '确定',
+              type: 'error'
+            })
+          }
+        })
+        .catch((res) => {
+          this.$alert('错误：' + res.status, '登录失败', {
+            confirmButtonText: '确定',
+            type: 'error'
+          })
+        })
     }
   }
 }

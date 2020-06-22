@@ -2,20 +2,52 @@
   <el-container direction="vertical" class="w600-center">
     <h2>用户注册</h2>
     <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="100px">
-      <el-form-item label="姓名" prop="name">
-        <el-input v-model="form.name"></el-input>
+      <el-form-item label="姓名" prop="userName">
+        <el-input v-model="form.userName"></el-input>
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="form.email"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="pass">
-        <el-input type="password" v-model="form.pass" show-password></el-input>
+      <el-form-item label="密码" prop="password">
+        <el-input type="password" v-model="form.password" show-password></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkpass">
         <el-input type="password" v-model="form.checkpass" show-password></el-input>
       </el-form-item>
+      <el-form-item label="性别" prop="sex" required>
+        <el-radio v-model="form.sex" label="男">男</el-radio>
+        <el-radio v-model="form.sex" label="女">女</el-radio>
+      </el-form-item>
+      <el-form-item label="手机" prop="telephone" required>
+        <el-input
+          maxlength="11"
+          v-model="form.telephone"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="QQ" prop="qq" required>
+        <el-input v-model="form.qq"></el-input>
+      </el-form-item>
+      <el-form-item label="微信" prop="wechat" required>
+        <el-input v-model="form.wechat"></el-input>
+      </el-form-item>
+      <el-form-item label="学校" prop="college" required>
+        <el-input v-model="form.college"></el-input>
+      </el-form-item>
+      <el-form-item label="专业" prop="major" required>
+        <el-input v-model="form.major"></el-input>
+      </el-form-item>
+      <el-form-item label="现居住地" prop="livingCity" required>
+        <el-input v-model="form.livingCity"></el-input>
+      </el-form-item>
+      <el-form-item label="籍贯" prop="hometown" required>
+        <el-input v-model="form.hometown"></el-input>
+      </el-form-item>
+      <el-form-item label="权限" prop="roleName" required>
+        <el-radio v-model="form.roleName" label="student">学生</el-radio>
+        <el-radio v-model="form.roleName" label="manager">部门负责人</el-radio>
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('form')">确认</el-button>
+        <el-button type="primary" @click="submitForm">确认</el-button>
         <el-button type="info" @click="onReturn">返回</el-button>
         <el-button @click="resetForm('form')">清除</el-button>
       </el-form-item>
@@ -40,7 +72,7 @@ export default {
     var checkPassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请确认密码'))
-      } else if (value !== this.form.pass) {
+      } else if (value !== this.form.password) {
         callback(new Error('两次输入密码不一致'))
       } else {
         callback()
@@ -48,17 +80,26 @@ export default {
     }
     return {
       form: {
-        name: '',
-        pass: '',
+        userName: '',
+        password: '',
         checkpass: '',
-        email: ''
+        email: '',
+        sex: '男',
+        telephone: '',
+        qq: '',
+        wechat: '',
+        college: '',
+        major: '',
+        livingCity: '',
+        hometown: '',
+        roleName: 'student'
       },
       rules: {
-        name: [
+        userName: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
           { min: 3, max: 60, message: '用户名长度为 3 至 60 个字符', trigger: 'blur' }
         ],
-        pass: [
+        password: [
           { required: true, validator: validatePassword, trigger: 'blur' }
         ],
         checkpass: [
@@ -71,14 +112,15 @@ export default {
     }
   },
   methods: {
-    submitForm (formname) {
-      this.$refs[formname].validate((valid) => {
+    submitForm () {
+      this.$refs.form.validate((valid) => {
         if (valid) {
-          // TODO: 在此提交注册信息
-          alert('Submit!')
+          this.sendReg()
         } else {
-          console.log('error submit!')
-          return false
+          this.$alert('注册信息填写有误，请检查注册信息！', '注册失败', {
+            confirmButtonText: '确定',
+            type: 'error'
+          })
         }
       })
     },
@@ -87,6 +129,26 @@ export default {
     },
     resetForm (formname) {
       this.$refs[formname].resetFields()
+    },
+    sendReg () {
+      delete this.form.checkpass
+      this.$axios.post('/user/register', this.$qs.stringify(this.form))
+        .then((res) => {
+          if (res.data.success) {
+            this.$router.push('/')
+          } else {
+            this.$alert('注册失败，请稍后重试', '注册失败', {
+              confirmButtonText: '确定',
+              type: 'error'
+            })
+          }
+        })
+        .catch((res) => {
+          this.$alert('错误: ' + res.status, '注册失败', {
+            confirmButtonText: '确定',
+            type: 'error'
+          })
+        })
     }
   }
 }
