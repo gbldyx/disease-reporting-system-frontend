@@ -18,7 +18,7 @@ Vue.prototype.$qs = qs
 Vue.prototype.$moment = moment
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = process.env.API_ROOT
 axios.defaults.withCredentials = true
 
 /* eslint-disable no-new */
