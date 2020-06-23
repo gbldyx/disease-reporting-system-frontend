@@ -5,6 +5,7 @@
 </template>
 
 <script>
+// 引入echarts
 let echarts = require('echarts/lib/echarts')
 require('echarts/lib/chart/bar')
 require('echarts/lib/component/tooltip')
@@ -55,9 +56,13 @@ export default {
     }
   },
   methods: {
+    // 可视化统计数据
     drawBar () {
+      // 设置定时器，原因：画图时需要知道父元素大小信息，但选项卡没被点击时
+      // 大小为0，需要持续检测直到选项卡被点击
       this.timer = setInterval(() => {
         var parentWidth = document.getElementById('myrow').offsetWidth
+        // 选项卡被选择，开始画图
         if (parentWidth !== 0) {
           document.getElementById('mychart').style.width = parentWidth + 'px'
           this.mychart = echarts.init(document.getElementById('mychart'))
@@ -76,6 +81,7 @@ export default {
               data: this.statData.map(item => item.v)
             }]
           })
+          // 清除定时器
           clearInterval(this.timer)
         }
       }, 2000)
@@ -90,6 +96,7 @@ export default {
     clearInterval(this.timer)
   },
   created: function () {
+    // 请求统计信息
     this.$axios.get('/health/countTodayTotalNum')
       .then(res => {
         if (res.data.success) {

@@ -30,9 +30,11 @@ export default {
     }
   },
   created: function () {
+    // 用vuex存的个人id查询个人案例
     this.$axios.post('/health/selectByOptionalField', this.$qs.stringify({ userId: this.$store.state.userid }))
       .then(res => {
         if (res.data.success) {
+          // 取出原数据要显示在表格的部分
           let result = res.data.data.map(o => {
             return {
               id: o.id,

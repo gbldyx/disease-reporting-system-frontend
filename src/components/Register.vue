@@ -59,6 +59,7 @@
 export default {
   name: 'Register',
   data () {
+    // 验证密码
     var validatePassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
@@ -69,6 +70,7 @@ export default {
         callback()
       }
     }
+    // 检查两次密码一致性
     var checkPassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请确认密码'))
@@ -94,6 +96,7 @@ export default {
         hometown: '',
         roleName: 'student'
       },
+      // 表单验证条件
       rules: {
         userName: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -112,9 +115,11 @@ export default {
     }
   },
   methods: {
+    // 提交表单
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
+          // 发送注册请求
           this.sendReg()
         } else {
           this.$alert('注册信息填写有误，请检查注册信息！', '注册失败', {
@@ -130,11 +135,15 @@ export default {
     resetForm (formname) {
       this.$refs[formname].resetFields()
     },
+    // 发送注册请求
     sendReg () {
+      // 删除‘确认密码’项
       delete this.form.checkpass
+      // 发送注册请求
       this.$axios.post('/user/register', this.$qs.stringify(this.form))
         .then((res) => {
           if (res.data.success) {
+            // 注册成功，返回登录界面
             this.$router.push('/')
           } else {
             this.$alert('注册失败，请稍后重试', '注册失败', {

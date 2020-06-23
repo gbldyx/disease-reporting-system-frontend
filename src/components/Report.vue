@@ -61,13 +61,21 @@ export default {
     }
   },
   methods: {
+    // 发送填报数据
     submit () {
       this.$axios.post('/health/insertSelective', this.$qs.stringify(this.form))
         .then((res) => {
-          this.$alert('填报成功！', '', {
-            confirmButtonText: '确定',
-            type: 'success'
-          })
+          if (res.data.success) {
+            this.$alert('填报成功！', '', {
+              confirmButtonText: '确定',
+              type: 'success'
+            })
+          } else {
+            this.$alert('填报失败！请重试', '', {
+              confirmButtonText: '确定',
+              type: 'error'
+            })
+          }
         })
     }
   }

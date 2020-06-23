@@ -18,6 +18,7 @@ Vue.prototype.$qs = qs
 Vue.prototype.$moment = moment
 
 Vue.config.productionTip = false
+// ajax请求的根路径，位于config/下的prod.env.js和dev.env.js
 axios.defaults.baseURL = process.env.API_ROOT
 axios.defaults.withCredentials = true
 

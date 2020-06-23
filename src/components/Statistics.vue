@@ -17,6 +17,7 @@ export default {
   data () {
     return {
       loading: false,
+      // 表格数据，k为属性名，label为显示标签，v为人数
       tableData: [
         {
           k: 'totalNum',
@@ -57,6 +58,7 @@ export default {
     }
   },
   methods: {
+    // 导出为excel表格
     exportxls () {
       this.loading = true
       import('@/vendor/Export2Excel.js').then(excel => {
@@ -83,6 +85,7 @@ export default {
     }
   },
   created: function () {
+    // 获得当日填报总人数
     this.$axios.get('/health/countTodayTotalNum')
       .then(res => {
         if (res.data.success) {
@@ -93,6 +96,7 @@ export default {
       }).catch(res => {
         console.log(res)
       })
+    // 获得填报状况人数统计
     this.$axios.get('/health/countTodayDangerousNum')
       .then(res => {
         if (res.data.success) {

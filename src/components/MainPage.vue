@@ -32,6 +32,7 @@ export default {
     }
   },
   created: function () {
+    // 根据vuex存的角色名设置el-menu显示的项目
     var r = this.$store.state.rolename
     if (r === 'student') {
       this.isPrior = false

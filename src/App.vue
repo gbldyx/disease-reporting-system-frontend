@@ -7,6 +7,7 @@
               <img src="./assets/logo.png" alt="vue"/>
               <h1 class="hidden-md-and-down">疾病直报系统</h1>
           </el-col>
+          <!-- 用户登录状态显示栏 -->
           <el-col :span="4">
             <div class="userstate">
               {{$store.state.username}}
@@ -32,6 +33,7 @@ export default {
     }
   },
   methods: {
+    // 注销
     logout () {
       this.$axios.get('/logout')
         .then(res => {

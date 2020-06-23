@@ -77,9 +77,11 @@ export default {
     }
   },
   methods: {
+    // 切换可修改状态
     edit () {
       this.uneditable = false
     },
+    // 保存修改结果，发送修改请求
     save () {
       this.form.id = this.$store.state.userid
       this.$axios.put('/user/update', this.$qs.stringify(this.form))
@@ -99,6 +101,7 @@ export default {
           }
         })
     },
+    // 放弃修改，重新获取一次个人信息
     cancel () {
       this.$axios.get('/user/selectOne', { params: { id: this.$store.state.userid } })
         .then((res) => {
@@ -114,6 +117,7 @@ export default {
     }
   },
   created: function () {
+    // 组件创建时先获取一次个人信息，显示出来
     this.$axios.get('/user/selectOne', { params: { id: this.$store.state.userid } })
       .then((res) => {
         if (res.data.success) {
